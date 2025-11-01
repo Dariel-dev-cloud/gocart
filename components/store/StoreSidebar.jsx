@@ -4,15 +4,15 @@ import { HomeIcon, LayoutListIcon, SquarePenIcon, SquarePlusIcon } from "lucide-
 import Image from "next/image"
 import Link from "next/link"
 
-const StoreSidebar = ({storeInfo}) => {
+const StoreSidebar = ({ storeInfo }) => {
 
     const pathname = usePathname()
 
     const sidebarLinks = [
-        { name: 'Dashboard', href: '/store', icon: HomeIcon },
-        { name: 'Add Product', href: '/store/add-product', icon: SquarePlusIcon },
-        { name: 'Manage Product', href: '/store/manage-product', icon: SquarePenIcon },
-        { name: 'Orders', href: '/store/orders', icon: LayoutListIcon },
+        { name: 'Panel', href: '/store', icon: HomeIcon },
+        { name: 'Añadir Producto', href: '/store/add-product', icon: SquarePlusIcon },
+        { name: 'Gestionar Producto', href: '/store/manage-product', icon: SquarePenIcon },
+        { name: 'Pedidos', href: '/store/orders', icon: LayoutListIcon },
     ]
 
     return (

@@ -1,11 +1,14 @@
 'use client'
-import { Search, ShoppingCart } from "lucide-react";
+import { PackageIcon, Search, ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useUser, useClerk, UserButton } from "@clerk/nextjs";
 
 const Navbar = () => {
+    const { user } = useUser();
+    const { openSignIn } = useClerk();
 
     const router = useRouter();
 
@@ -31,33 +34,65 @@ const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden sm:flex items-center gap-4 lg:gap-8 text-slate-600">
-                        <Link href="/">Home</Link>
-                        <Link href="/shop">Shop</Link>
-                        <Link href="/">About</Link>
-                        <Link href="/">Contact</Link>
+                        <Link href="/">Inicio</Link>
+                        <Link href="/shop">Tienda</Link>
+                        <Link href="/">Acerca de</Link>
+                        <Link href="/">Contacto</Link>
 
                         <form onSubmit={handleSearch} className="hidden xl:flex items-center w-xs text-sm gap-2 bg-slate-100 px-4 py-3 rounded-full">
                             <Search size={18} className="text-slate-600" />
-                            <input className="w-full bg-transparent outline-none placeholder-slate-600" type="text" placeholder="Search products" value={search} onChange={(e) => setSearch(e.target.value)} required />
+                            <input className="w-full bg-transparent outline-none placeholder-slate-600" type="text" placeholder="Buscar productos" value={search} onChange={(e) => setSearch(e.target.value)} required />
                         </form>
 
                         <Link href="/cart" className="relative flex items-center gap-2 text-slate-600">
                             <ShoppingCart size={18} />
-                            Cart
+                            Carrito
                             <button className="absolute -top-1 left-3 text-[8px] text-white bg-slate-600 size-3.5 rounded-full">{cartCount}</button>
                         </Link>
+                        {
+                            !user ? (
+                                <button onClick={openSignIn} className="px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full">
+                                    Iniciar sesión
+                                </button>
+                            ) : (
+                                <UserButton>
+                                    <UserButton.MenuItems>
+                                        <UserButton.Action labelIcon={<PackageIcon size={16} />}
+                                            label="Mis pedidos" onClick={() => router.push('/orders')} />
+                                    </UserButton.MenuItems>
+                                </UserButton>
+                            )
+                        }
 
-                        <button className="px-8 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full">
-                            Login
-                        </button>
+
 
                     </div>
 
                     {/* Mobile User Button  */}
                     <div className="sm:hidden">
-                        <button className="px-7 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-sm transition text-white rounded-full">
-                            Login
-                        </button>
+                        {
+                            user ? (
+                                <div>
+                                    <UserButton>
+                                        <UserButton.MenuItems>
+                                            <UserButton.Action labelIcon={<PackageIcon size={16} />}
+                                                label="Mis pedidos" onClick={() => router.push('/orders')} />
+                                        </UserButton.MenuItems>
+                                    </UserButton>
+                                    <UserButton>
+                                        <UserButton.MenuItems>
+                                            <UserButton.Action labelIcon={<ShoppingCart size={16} />}
+                                                label="Cart" onClick={() => router.push('/cart')} />
+                                        </UserButton.MenuItems>
+                                    </UserButton>
+                                </div>
+                            ) : (
+                                <button onClick={openSignIn} className="px-7 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-sm transition text-white rounded-full">
+                                    Iniciar sesión
+                                </button>
+                            )
+                        }
+
                     </div>
                 </div>
             </div>

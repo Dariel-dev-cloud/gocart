@@ -1,15 +1,23 @@
 generator client {
-    provider        = "prisma-client-js"
-    previewFeatures = ["driverAdapters"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-// Required for creating a User: id, name, email, image, cart (optional JSON string)
+model playing_with_neon {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value Float? @db.Real
+}
+
+model person {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value Float? @db.Real
+}
 model User {
     id    String @id
     name  String
