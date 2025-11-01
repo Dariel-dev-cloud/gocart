@@ -2,84 +2,96 @@
   <h1><img src="https://gocartshop.in/favicon.ico" width="20" height="20" alt="GoCart Favicon">
    GoCart</h1>
   <p>
-    An open-source multi-vendor e-commerce platform built with Next.js and Tailwind CSS.
+    Una plataforma de comercio electrónico multi-vendedor de código abierto construida con Next.js y Tailwind CSS.
   </p>
   <p>
-    <a href="https://github.com/GreatStackDev/goCart/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/GreatStackDev/goCart?style=for-the-badge" alt="License"></a>
-    <a href="https://github.com/GreatStackDev/goCart/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome"></a>
-    <a href="https://github.com/GreatStackDev/goCart/issues"><img src="https://img.shields.io/github/issues/GreatStackDev/goCart?style=for-the-badge" alt="GitHub issues"></a>
+    <a href="https://github.com/Dariel-dev-cloud/gocart/blob/main/LICENSE.md"><img src="https://img.shields.io/github/license/Dariel-dev-cloud/gocart?style=for-the-badge" alt="Licencia"></a>
+    <a href="https://github.com/Dariel-dev-cloud/gocart/pulls"><img src="https://img.shields.io/badge/PRs-bienvenidos-brightgreen.svg?style=for-the-badge" alt="PRs Bienvenidos"></a>
+    <a href="https://github.com/Dariel-dev-cloud/gocart/issues"><img src="https://img.shields.io/github/issues/Dariel-dev-cloud/gocart?style=for-the-badge" alt="GitHub issues"></a>
   </p>
 </div>
 
 ---
 
-## 📖 Table of Contents
+## 📋 Descripción del Proyecto
 
-- [✨ Features](#-features)
-- [🛠️ Tech Stack](#-tech-stack)
-- [🚀 Getting Started](#-getting-started)
-- [🤝 Contributing](#-contributing)
-- [📜 License](#-license)
+**GoCart** es una solución completa de comercio electrónico multi-vendedor diseñada para crear marketplaces modernos y escalables. Esta plataforma permite a múltiples vendedores gestionar sus propias tiendas virtuales dentro de un ecosistema unificado, mientras que los clientes disfrutan de una experiencia de compra fluida y profesional.
+
+### ¿Qué hace especial a GoCart?
+
+GoCart combina la potencia de las tecnologías web modernas con una arquitectura bien pensada para ofrecer:
+
+- **Marketplace Multi-Vendedor:** Permite que múltiples vendedores independientes operen sus tiendas en una sola plataforma, similar a Amazon o eBay.
+- **Gestión Centralizada:** Panel de administración completo para supervisar todas las operaciones del marketplace.
+- **Escalabilidad:** Construido con Next.js 14 y arquitectura moderna para soportar crecimiento.
+- **Experiencia de Usuario Premium:** Interfaz elegante y responsive que funciona perfectamente en todos los dispositivos.
+
+### Casos de Uso Ideales
+
+- Crear un marketplace de productos artesanales
+- Plataforma de venta para múltiples boutiques
+- Marketplace B2B o B2C personalizado
+- Centro comercial virtual para vendedores locales
 
 ---
 
-## Features
+## 📖 Tabla de Contenidos
 
-- **Multi-Vendor Architecture:** Allows multiple vendors to register, manage their own products, and sell on a single platform.
-- **Customer-Facing Storefront:** A beautiful and responsive user interface for customers to browse and purchase products.
-- **Vendor Dashboards:** Dedicated dashboards for vendors to manage products, view sales analytics, and track orders.
-- **Admin Panel:** A comprehensive dashboard for platform administrators to oversee vendors, products, and commissions.
+- [📋 Descripción del Proyecto](#-descripción-del-proyecto)
+- [✨ Características](#-características)
+- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
+- [🚀 Comenzar](#-comenzar)
+- [🤝 Contribuir](#-contribuir)
+- [📜 Licencia](#-licencia)
 
-## 🛠️ Tech Stack <a name="-tech-stack"></a>
+---
 
-- **Framework:** Next.js
-- **Styling:** Tailwind CSS
-- **UI Components:** Lucide React for icons
-- **State Management:** Redux Toolkit
+## ✨ Características
 
-## 🚀 Getting Started <a name="-getting-started"></a>
+- **Arquitectura Multi-Vendedor:** Permite que múltiples vendedores se registren, gestionen sus propios productos y vendan en una única plataforma.
+- **Tienda para Clientes:** Una interfaz de usuario hermosa y responsive para que los clientes naveguen y compren productos.
+- **Paneles de Vendedor:** Dashboards dedicados para que los vendedores gestionen productos, vean análisis de ventas y rastreen pedidos.
+- **Panel de Administración:** Un dashboard completo para que los administradores de la plataforma supervisen vendedores, productos y comisiones.
+- **Gestión de Carrito:** Sistema de carrito de compras con Redux Toolkit para una experiencia fluida.
+- **Sistema de Calificaciones:** Los clientes pueden dejar valoraciones y reseñas de productos.
+- **Procesamiento de Pedidos:** Flujo completo desde la compra hasta el seguimiento de pedidos.
+- **Sistema de Cupones:** Gestión de descuentos y promociones.
+- **Gestión de Direcciones:** Los usuarios pueden guardar múltiples direcciones de envío.
 
-First, install the dependencies. We recommend using `npm` for this project.
+## 🛠️ Stack Tecnológico
+
+- **Framework:** Next.js 14 (App Router)
+- **Estilos:** Tailwind CSS
+- **Componentes UI:** Lucide React para iconos
+- **Gestión de Estado:** Redux Toolkit
+- **Base de Datos:** Prisma ORM
+- **Lenguaje:** JavaScript (React)
+
+## 🚀 Comenzar
+
+Primero, instala las dependencias. Recomendamos usar `npm` para este proyecto.
 
 ```bash
 npm install
 ```
 
-Then, run the development server:
+Luego, ejecuta el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
+# o
 yarn dev
-# or
+# o
 pnpm dev
-# or
+# o
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
 
-You can start editing the page by modifying `app/(public)/page.js`. The page auto-updates as you edit the file.
+Puedes comenzar a editar la página modificando `app/(public)/page.js`. La página se actualiza automáticamente mientras editas el archivo.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Outfit](https://vercel.com/font), a new font family for Vercel.
-
----
-
-## 🤝 Contributing <a name="-contributing"></a>
-
-We welcome contributions! Please see our [CONTRIBUTING.md](./CONTRIBUTING.md) for more details on how to get started.
+Este proyecto usa [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) para optimizar y cargar automáticamente [Outfit](https://vercel.com/font), una nueva familia de fuentes para Vercel.
 
 ---
 
-## 📜 License <a name="-license"></a>
-
-This project is licensed under the MIT License. See the [LICENSE.md](./LICENSE.md) file for details.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!

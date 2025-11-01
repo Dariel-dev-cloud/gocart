@@ -5,6 +5,7 @@ import "./globals.css";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["400", "500", "600"] });
 
+
 export const metadata = {
     title: "GoCart. - Shop smarter",
     description: "GoCart. - Shop smarter",
@@ -12,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body className={`${outfit.className} antialiased`}>
                 <StoreProvider>
                     <Toaster />
