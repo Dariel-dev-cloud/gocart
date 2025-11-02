@@ -2,6 +2,7 @@ import imagekit from "@/configs/imageKit";
 import prisma from "@/lib/prisma";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
+
 export async function POST(request) {
     try {
         const { userId } = getAuth(request)
@@ -31,31 +32,31 @@ export async function POST(request) {
         }
 
         //image upload to imagekit
-        const buffer = Buffer.from(await image.arrayBuffer())
-        const response = await imagekit.upload({
-            file: buffer,
+        const response = await imagekit.files.upload({
+            file: image,
             fileName: image.name,
             folder: "logos"
-        })
+        });
 
-        const optimizedImage = imagekit.baseURL({
-            path: response.filePath,
-            transformations: [
-                { quality: "auto" },
-                { format: "webp" },
-                { width: '512' }
+        const optimizedImage = imagekit.helper.buildSrc({
+            urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
+            src: response.filePath,
+            transformation: [
+                { quality: "auto", format: "webp", width: 512 }
             ]
-        })
+        });
 
         const newStore = await prisma.store.create({
-            userId,
-            name,
-            description,
-            username: username.toLowerCase(),
-            email,
-            contact,
-            address,
-            logo: optimizedImage,
+            data: {
+                userId,
+                name,
+                description,
+                username: username.toLowerCase(),
+                email,
+                contact,
+                address,
+                logo: optimizedImage,
+            }
 
         })
         await prisma.user.update({
@@ -66,7 +67,8 @@ export async function POST(request) {
         return NextResponse.json({ message: "applied, waiting for approval" })
 
     } catch (error) {
-
+        console.log(error)
+        return NextResponse.json({ error: error.code || error.message }, { status: 400 })
     }
 
 }
