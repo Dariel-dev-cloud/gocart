@@ -6,18 +6,18 @@ import { NextResponse } from "next/server";
 export async function POST(request) {
     try {
         const { userId } = getAuth(request);
-        const { producId } = request.json();
+        const { productId } = await request.json();
 
         if (!productId) {
             return NextResponse.json({ error: 'missing details: productId' }, { status: 400 });
         }
-        const storedId = await authSeller(userId)
-        if (!storedId) {
+        const storeId = await authSeller(userId)
+        if (!storeId) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const product = await prisma.product.findFirst({
-            where: { id: productId, storeId }
+            where: { id: productId, storeId: storeId }
         })
 
         if (!product) {
