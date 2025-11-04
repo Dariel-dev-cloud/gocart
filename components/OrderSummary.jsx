@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
-const OrderSummary = ({ totalPrice, items }) => {
+const OrderSummary = ({ totalPrice, items = [] }) => {
 
     const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || '$';
 
@@ -26,6 +26,16 @@ const OrderSummary = ({ totalPrice, items }) => {
 
     const handlePlaceOrder = async (e) => {
         e.preventDefault();
+
+        if (!selectedAddress) {
+            toast.error('Por favor selecciona una dirección de entrega');
+            return;
+        }
+
+        if (!items || items.length === 0) {
+            toast.error('Tu carrito está vacío');
+            return;
+        }
 
         router.push('/orders')
     }
@@ -53,7 +63,7 @@ const OrderSummary = ({ totalPrice, items }) => {
                     ) : (
                         <div>
                             {
-                                addressList.length > 0 && (
+                                addressList?.length > 0 && (
                                     <select className='border border-slate-400 p-2 w-full my-3 outline-none rounded' onChange={(e) => setSelectedAddress(addressList[e.target.value])} >
                                         <option value="">Seleccionar Dirección</option>
                                         {
@@ -101,7 +111,8 @@ const OrderSummary = ({ totalPrice, items }) => {
                 <p>Total:</p>
                 <p className='font-medium text-right'>{currency}{coupon ? (totalPrice - (coupon.discount / 100 * totalPrice)).toFixed(2) : totalPrice.toLocaleString()}</p>
             </div>
-            <button onClick={e => toast.promise(handlePlaceOrder(e), { loading: 'Realizando Pedido...' })} className='w-full bg-slate-700 text-white py-2.5 rounded hover:bg-slate-900 active:scale-95 transition-all'>Realizar Pedido</button>
+            <button onClick={e => toast.promise(handlePlaceOrder(e), { loading: 'Realizando Pedido...' })}
+                disabled={!selectedAddress || !items || items.length === 0} className='w-full bg-slate-700 text-white py-2.5 rounded hover:bg-slate-900 active:scale-95 transition-all'>Realizar Pedido</button>
 
             {showAddressModal && <AddressModal setShowAddressModal={setShowAddressModal} />}
 
