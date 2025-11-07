@@ -1,16 +1,18 @@
 import { PlusIcon, SquarePenIcon, XIcon } from 'lucide-react';
 import React, { useState } from 'react'
 import AddressModal from './AddressModal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import { Protect, useAuth, useUser } from '@clerk/nextjs';
 import axios from 'axios';
+import { fetchCart } from '@/lib/features/cart/cartSlice';
 
 const OrderSummary = ({ totalPrice, items = [] }) => {
 
     const { user } = useUser()
     const { getToken } = useAuth()
+    const distpatch = useDispatch()
     const currency = process.env.NEXT_PUBLIC_CURRENCY_SYMBOL || '$';
 
     const router = useRouter();
@@ -43,18 +45,39 @@ const OrderSummary = ({ totalPrice, items = [] }) => {
 
     const handlePlaceOrder = async (e) => {
         e.preventDefault();
+        try {
+            if (!user) {
+                return toast('Por favor inicia sesión para poder enviar el pedido');
+            }
+            if (!selectedAddress) {
+                return toast('Por favor selecciona una dirección de entrega');
+            }
+            const token = await getToken()
 
-        if (!selectedAddress) {
-            toast.error('Por favor selecciona una dirección de entrega');
-            return;
+            const orderData = {
+                addressId: selectedAddress.id,
+                items,
+                paymentMethod,
+            }
+            if (coupon) {
+                orderData.couponCode = coupon.code
+            }
+            const { data } = await axios.post('/api/orders', orderData, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            if (paymentMethod === 'STRIPE') {
+                window.location.href = data.session.url;
+            } else {
+                toast.success('Pedido realizado con éxito');
+                router.push('/orders')
+                distpatch(fetchCart({ getToken }))
+            }
+
+        } catch (error) {
+            toast.error(error?.response?.data?.error || error.message);
         }
 
-        if (!items || items.length === 0) {
-            toast.error('Tu carrito está vacío');
-            return;
-        }
 
-        router.push('/orders')
     }
 
     return (
