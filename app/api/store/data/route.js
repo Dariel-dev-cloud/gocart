@@ -8,7 +8,7 @@ export async function GET(request) {
         const username = searchParams.get('username').toLowerCase();
 
         if (!username) {
-            return NextResponse.json({ error: "missing username" }, { status: 400 });
+            return NextResponse.json({ error: "Faltan datos de usuario" }, { status: 400 });
         }
 
         const store = await prisma.store.findUnique({
@@ -16,7 +16,7 @@ export async function GET(request) {
             include: { Product: { include: { rating: true } } }
         })
         if (!store) {
-            return NextResponse.json({ error: "store not found" }, { status: 404 });
+            return NextResponse.json({ error: "tienda no encontrada" }, { status: 404 });
         }
         return NextResponse.json({ store }, { status: 200 });
     } catch (error) {

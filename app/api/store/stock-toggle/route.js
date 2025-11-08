@@ -9,11 +9,11 @@ export async function POST(request) {
         const { productId } = await request.json();
 
         if (!productId) {
-            return NextResponse.json({ error: 'missing details: productId' }, { status: 400 });
+            return NextResponse.json({ error: 'faltan detalles: productId' }, { status: 400 });
         }
         const storeId = await authSeller(userId)
         if (!storeId) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return NextResponse.json({ error: 'no autorizado' }, { status: 401 });
         }
 
         const product = await prisma.product.findFirst({
@@ -21,7 +21,7 @@ export async function POST(request) {
         })
 
         if (!product) {
-            return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+            return NextResponse.json({ error: 'Producto no encontrado' }, { status: 404 });
         }
 
         await prisma.product.update({
@@ -30,7 +30,7 @@ export async function POST(request) {
                 inStock: !product.inStock
             }
         })
-        return NextResponse.json({ message: 'Product stock updated successfully' }, { status: 200 });
+        return NextResponse.json({ message: 'Stock del producto actualizado con éxito' }, { status: 200 });
     } catch (error) {
         console.log(error);
         return NextResponse.json({ error: error.code || error.message }, { status: 400 });

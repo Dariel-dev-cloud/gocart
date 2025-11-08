@@ -16,7 +16,7 @@ export async function POST(request) {
         const address = formData.get('address')
         const image = formData.get('image')
         if (!name || !username || !description || !email || !contact || !address || !image) {
-            return NextResponse.json({ error: "missing store info" }, { status: 400 })
+            return NextResponse.json({ error: "Faltan datos de la tienda" }, { status: 400 })
         }
         const store = await prisma.store.findFirst({
             where: { userId: userId }
@@ -28,7 +28,7 @@ export async function POST(request) {
             where: { username: username.toLowerCase() }
         })
         if (isUsernameTaken) {
-            return NextResponse.json({ error: "username taken" }, { status: 400 })
+            return NextResponse.json({ error: "Nombre de usuario ya en uso" }, { status: 400 });
         }
 
         //image upload to imagekit
@@ -64,7 +64,7 @@ export async function POST(request) {
             data: { store: { connect: { id: newStore.id } } }
         })
 
-        return NextResponse.json({ message: "applied, waiting for approval" })
+        return NextResponse.json({ message: "Solicitud enviada, en espera de aprobación" })
 
     } catch (error) {
         console.log(error)
@@ -83,7 +83,7 @@ export async function GET(request) {
             return NextResponse.json({ status: store.status })
         }
 
-        return NextResponse.json({ status: "not registered" })
+        return NextResponse.json({ status: "no registrado" })
 
     } catch (error) {
         console.log(error)

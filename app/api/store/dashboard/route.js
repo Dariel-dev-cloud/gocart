@@ -23,7 +23,7 @@ export async function GET(request) {
             totalEarnings: Math.round(orders.reduce((acc, order) => acc + order.total, 0)),
             totalProducts: products.length
         }
-        return NextResponse.json(dashboardData)
+        return NextResponse.json({ dashboardData })
     } catch (error) {
         console.error(error)
         return NextResponse.json({ error: error.code || error.message }, { status: 400 })

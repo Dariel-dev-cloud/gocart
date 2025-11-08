@@ -9,7 +9,7 @@ export async function POST(request) {
         const { userId } = getAuth(request);
         const storeId = await authSeller(userId);
         if (!storeId) {
-            return NextResponse.json({ error: "not authorized" }, { status: 401 });
+            return NextResponse.json({ error: "no autorizado" }, { status: 401 });
         }
         //get data from the form
         const formData = await request.formData()
@@ -21,7 +21,7 @@ export async function POST(request) {
         const images = formData.getAll('images')
 
         if (!name || !description || !mrp || !price || !category || images.length < 1) {
-            return NextResponse.json({ error: "missing product details" }, { status: 400 })
+            return NextResponse.json({ error: "Faltan detalles del producto" }, { status: 400 })
         }
 
         // Uploading Images to ImageKit
@@ -54,7 +54,7 @@ export async function POST(request) {
             }
         })
 
-        return NextResponse.json({ message: "product added successfully" })
+        return NextResponse.json({ message: "producto agregado con éxito" })
 
 
     } catch (error) {
@@ -69,7 +69,7 @@ export async function GET(request) {
         const { userId } = getAuth(request);
         const storeId = await authSeller(userId);
         if (!storeId) {
-            return NextResponse.json({ error: "not authorized" }, { status: 401 });
+            return NextResponse.json({ error: "no autorizado" }, { status: 401 });
         }
         const products = await prisma.product.findMany({
             where: { storeId }
