@@ -71,7 +71,9 @@ const Navbar = () => {
 
                     </div>
 
-                    {/* Mobile User Button  */}
+                    {/* Mobile User Button */}
+
+
                     <div className="sm:hidden">
                         {
                             user ? (
@@ -80,10 +82,6 @@ const Navbar = () => {
                                         <UserButton.MenuItems>
                                             <UserButton.Action labelIcon={<PackageIcon size={16} />}
                                                 label="Mis pedidos" onClick={() => router.push('/orders')} />
-                                        </UserButton.MenuItems>
-                                    </UserButton>
-                                    <UserButton>
-                                        <UserButton.MenuItems>
                                             <UserButton.Action labelIcon={<ShoppingCart size={16} />}
                                                 label="Cart" onClick={() => router.push('/cart')} />
                                         </UserButton.MenuItems>
